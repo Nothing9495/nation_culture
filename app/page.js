@@ -1,15 +1,18 @@
 // TODO: 1. 更换背景图片 (Completed-partitially, better images are needed)
 
+const HOME_HERO_BG_IMAGE = "/images/homepage_bg_2.jpg";
+const HOME_HERO_BG_STYLE = {
+  backgroundImage: `url('${HOME_HERO_BG_IMAGE}')`,
+  backgroundPosition: "calc(50% + 30vw) center",
+};
+
 export default function Home() {
   return (
     <div className="group relative flex min-h-screen flex-col overflow-hidden">
       {/* 背景图层：保持 cover 填充，并在悬停时放大 */}
       <div
         className="absolute inset-0 bg-cover bg-no-repeat transition-transform duration-500 ease-out group-hover:scale-110"
-        style={{
-          backgroundImage: "url('/images/homepage_bg_2.jpg')",
-          backgroundPosition: "calc(50% + 30vw) center",
-        }}
+        style={HOME_HERO_BG_STYLE}
       />
       {/* 渐变遮罩层：提升左侧文字区可读性 */}
       <div

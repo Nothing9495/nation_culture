@@ -1,8 +1,3 @@
-// TODO: 1. 优化卡片展示效果（图片与文本比例）
-//       2. 固定非响应式卡片高度
-//       3. 增加筛选条件：地域为云南时显示云南的二级筛选（如宏德州、大理州等，共计16个州市）
-//       4. 更新筛选条件后，将页面滚动到筛选条件控件的顶部
-
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -83,6 +78,7 @@ const DEFAULT_IMAGE = "/images/stele-default.svg";
 const DEFAULT_TITLE = "待补充碑刻名称";
 const DEFAULT_DESC = "暂无碑刻描述，待数据库完善";
 const DEFAULT_TAGS = ["待补充标签"];
+const HERO_BG_IMAGE = "/images/stele-background.jpg"; // 标题区背景图路径，例如："/images/stele-database-hero.jpg"
 
 const PAGE_SIZE = 10;
 
@@ -413,7 +409,6 @@ export default function SteleDatabasePage() {
   const [openSelect, setOpenSelect] = useState("");
   const [activeStele, setActiveStele] = useState(null);
   const filterBarRef = useRef(null);
-  const hasMountedFilterRef = useRef(false);
 
   const scrollToFilterTop = () => {
     if (!filterBarRef.current) {
@@ -422,6 +417,10 @@ export default function SteleDatabasePage() {
 
     const top = filterBarRef.current.getBoundingClientRect().top + window.scrollY - 96;
     window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  };
+
+  const scrollToFilterTopOnNextFrame = () => {
+    window.requestAnimationFrame(scrollToFilterTop);
   };
 
   useEffect(() => {
@@ -450,15 +449,6 @@ export default function SteleDatabasePage() {
       document.body.style.overflow = "";
     };
   }, [activeStele]);
-
-  useEffect(() => {
-    if (!hasMountedFilterRef.current) {
-      hasMountedFilterRef.current = true;
-      return;
-    }
-
-    scrollToFilterTop();
-  }, [primaryFilter, secondaryFilter, yunnanPrefectureFilter, page]);
 
   const secondaryOptions = useMemo(() => {
     if (primaryFilter === "all") {
@@ -518,10 +508,18 @@ export default function SteleDatabasePage() {
   );
 
   const showYunnanPrefectureFilter = primaryFilter === "region" && secondaryFilter === "云南";
+  const heroStyle = HERO_BG_IMAGE
+    ? {
+      backgroundImage: `linear-gradient(90deg, rgba(249, 250, 251, 0.95), rgba(249, 250, 251, 0.20)), url(${HERO_BG_IMAGE})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }
+    : undefined;
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <section className="border-b border-zinc-200 bg-gray-50">
+      <section className="border-b border-zinc-200 bg-gray-50" style={heroStyle}>
         <div className="mx-auto w-full max-w-5xl px-6 py-16">
           {/* <p className="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-500">
             测试页面
@@ -554,6 +552,7 @@ export default function SteleDatabasePage() {
                 setYunnanPrefectureFilter("");
                 setPage(1);
                 setOpenSelect("");
+                scrollToFilterTopOnNextFrame();
               }}
             />
 
@@ -571,6 +570,7 @@ export default function SteleDatabasePage() {
                   setYunnanPrefectureFilter("");
                   setPage(1);
                   setOpenSelect("");
+                  scrollToFilterTopOnNextFrame();
                 }}
               />
             )}
@@ -588,6 +588,7 @@ export default function SteleDatabasePage() {
                   setYunnanPrefectureFilter(value);
                   setPage(1);
                   setOpenSelect("");
+                  scrollToFilterTopOnNextFrame();
                 }}
               />
             )}
@@ -632,7 +633,10 @@ export default function SteleDatabasePage() {
           <button
             type="button"
             className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-700 disabled:cursor-not-allowed disabled:opacity-50"
-            onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+            onClick={() => {
+              setPage((prev) => Math.max(1, prev - 1));
+              scrollToFilterTopOnNextFrame();
+            }}
             disabled={safePage === 1}
           >
             上一页
@@ -643,7 +647,10 @@ export default function SteleDatabasePage() {
           <button
             type="button"
             className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-700 disabled:cursor-not-allowed disabled:opacity-50"
-            onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+            onClick={() => {
+              setPage((prev) => Math.min(totalPages, prev + 1));
+              scrollToFilterTopOnNextFrame();
+            }}
             disabled={safePage === totalPages}
           >
             下一页
