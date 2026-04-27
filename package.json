@@ -1,0 +1,25 @@
+{
+  "name": "nation_culture",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "postbuild": "npm run postbuild:CopyFiles && npm run postbuild:CalculateSize",
+    "postbuild:CopyFiles": "sh ./tools/CopyFilesToStandalone.sh",
+    "postbuild:CalculateSize": "sh ./tools/CalculateBuildSize.sh",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "16.2.2",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.2",
+    "tailwindcss": "^4"
+  }
+}

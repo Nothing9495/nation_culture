@@ -1,0 +1,9 @@
+<svg width="720" height="540" viewBox="0 0 720 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="540" fill="#EEECE4"/>
+  <rect x="221" y="90" width="278" height="360" rx="16" fill="#D5D0C4"/>
+  <rect x="259" y="132" width="202" height="44" rx="8" fill="#B8B09E"/>
+  <rect x="259" y="198" width="202" height="18" rx="6" fill="#B8B09E"/>
+  <rect x="259" y="228" width="202" height="18" rx="6" fill="#B8B09E"/>
+  <rect x="259" y="258" width="168" height="18" rx="6" fill="#B8B09E"/>
+  <text x="360" y="357" text-anchor="middle" fill="#7E7564" font-size="28" font-family="sans-serif">暂无图片</text>
+</svg>
