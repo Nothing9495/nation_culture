@@ -1,6 +1,6 @@
 // TODO: 1. 更换背景图片 (Completed-partitially, better images are needed)
 
-const HOME_HERO_BG_IMAGE = "/images/homepage_bg_2.jpg";
+const HOME_HERO_BG_IMAGE = "/images/bg_candidate1.jpg";
 const HOME_HERO_BG_STYLE = {
   backgroundImage: `url('${HOME_HERO_BG_IMAGE}')`,
   backgroundPosition: "calc(50% + 30vw) center",
