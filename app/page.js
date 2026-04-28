@@ -4,7 +4,7 @@
 
 import { useRouter } from "next/navigation";
 
-const HOME_HERO_BG_IMAGE = "/images/old/homepage_bg.jpg";
+const HOME_HERO_BG_IMAGE = "/images/homepage_bg.jpg";
 const HOME_HERO_BG_STYLE = {
   backgroundImage: `url('${HOME_HERO_BG_IMAGE}')`,
   backgroundPosition: "calc(50% + 30vw) center",
