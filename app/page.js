@@ -1,4 +1,8 @@
+"use client";
+
 // TODO: 1. 更换背景图片 (Completed-partitially, better images are needed)
+
+import { useRouter } from "next/navigation";
 
 const HOME_HERO_BG_IMAGE = "/images/homepage_bg.jpg";
 const HOME_HERO_BG_STYLE = {
@@ -7,6 +11,7 @@ const HOME_HERO_BG_STYLE = {
 };
 
 export default function Home() {
+  const router = useRouter();
   return (
     <div className="group relative flex min-h-screen flex-col overflow-hidden">
       {/* 背景图层：保持 cover 填充，并在悬停时放大 */}
@@ -35,9 +40,22 @@ export default function Home() {
         <p className="mt-6 max-w-2xl text-lg text-white">
           本项目聚焦云南彝文、白文、傣文、东巴文、藏文等少数民族文字碑刻，以“数字化保护+活化传承+文旅融合”为核心，打造集普查、采集、释读、数据库建设、文创开发、研学服务于一体的全链条创业模式。
         </p>
-        <button className="mt-6 self-start rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-gray-800 dark:bg-zinc-100 dark:text-black dark:hover:bg-gray-300">
-          了解更多
-        </button>
+        <div className="mt-6 self-start flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <button
+            type="button"
+            onClick={() => router.push("/sub_pages/about-page")}
+            className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black transition transform hover:-translate-y-0.25 hover:scale-101 hover:bg-gray-100 dark:bg-zinc-100 dark:text-black dark:hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            了解更多
+          </button>
+          <button
+            type="button"
+            onClick={() => router.push("/sub_pages/stele-database")}
+            className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black transition transform hover:-translate-y-0.25 hover:scale-101 hover:bg-gray-100 dark:bg-zinc-100 dark:text-black dark:hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          >
+            前往碑刻数据库
+          </button>
+        </div>
       </section>
     </div>
   );
